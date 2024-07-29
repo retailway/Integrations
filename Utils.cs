@@ -1,5 +1,4 @@
-﻿using RetailLib.Enums;
-using System;
+﻿using System;
 using System.Globalization;
 
 namespace RetailLib
@@ -12,7 +11,5 @@ namespace RetailLib
             dt.ToString("yyyy-MM-ddTHH:mm:ss");
         public static DateTime ParseJSONDateTime(this string text) =>
             DateTime.ParseExact(text, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-        public static OperationType ToOperation(this (bool corr, bool ret, bool income) src) =>
-            (OperationType)((src.corr ? 4 : 0) | (src.ret ? 2 : 0) | (src.income ? 1 : 0));
     }
 }

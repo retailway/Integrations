@@ -50,24 +50,22 @@
     <Compile Include="Attributes\OperatorAttribute.cs" />
     <Compile Include="Drivers\ATOL.cs" />
     <Compile Include="Drivers\SHTRIH.cs" />
-    <Compile Include="Entities\Payment.cs" />
-    <Compile Include="Entities\Position.cs" />
-    <Compile Include="Enums\CalculationMethod.cs" />
-    <Compile Include="Enums\MeasureUnit.cs" />
-    <Compile Include="Enums\OperationType.cs" />
-    <Compile Include="Enums\SubjectType.cs" />
-    <Compile Include="Enums\TaxType.cs" />
     <Compile Include="Driver.cs" />
     <Compile Include="Operator.cs" />
     <Compile Include="Operators\OFDRU.cs" />
     <Compile Include="Operators\PLATFORMA.cs" />
     <Compile Include="Operators\SBIS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Receipt.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RetailTypes\RetailTypes.csproj">
+      <Project>{024cdf9a-8d47-47bf-9952-2a7981bede87}</Project>
+      <Name>RetailTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

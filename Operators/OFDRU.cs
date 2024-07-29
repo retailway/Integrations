@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using RetailLib.Attributes;
-using RetailLib.Entities;
-using RetailLib.Enums;
+using RetailTypes;
+using RetailTypes.Enums;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

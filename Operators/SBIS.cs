@@ -1,5 +1,6 @@
 ﻿using RetailLib.Attributes;
 using System.Collections.Generic;
+using RetailTypes;
 using System.Threading.Tasks;
 using System;
 
