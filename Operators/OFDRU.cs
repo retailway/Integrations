@@ -2,6 +2,7 @@
 using RetailLib.Attributes;
 using RetailTypes;
 using RetailTypes.Enums;
+using RetailTypes.Elements;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
