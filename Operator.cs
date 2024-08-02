@@ -1,13 +1,13 @@
-﻿using RetailLib.Attributes;
+﻿using RetailWay.Integrations.Attributes;
 using System;
-using RetailTypes;
+using RetailWay.Types;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace RetailLib
+namespace RetailWay.Integrations
 {
     public abstract class Operator
     {

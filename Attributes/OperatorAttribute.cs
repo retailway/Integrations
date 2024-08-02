@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RetailLib.Attributes
+namespace RetailWay.Integrations.Attributes
 {
     public class OperatorAttribute: Attribute
     {

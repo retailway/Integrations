@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
-using RetailLib.Attributes;
-using RetailTypes;
-using RetailTypes.Enums;
-using RetailTypes.Elements;
+using RetailWay.Integrations.Attributes;
+using RetailWay.Types;
+using RetailWay.Types.Enums;
+using RetailWay.Types.Elements;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Globalization;
 
-namespace RetailLib.Operators
+namespace RetailWay.Integrations.Operators
 {
     [Operator("7841465198")]
     public class OFDRU : Operator
@@ -18,7 +19,7 @@ namespace RetailLib.Operators
         {
             var res = new List<Receipt>();
             var url = "https://ofd.ru/api/integration/v2/inn/{0}/kkt/{1}/receipts-info?dateFrom={2}&dateTo={3}&AuthToken={4}";
-            url = string.Format(url, Driver.CompanyVatin, Driver.RegNumber, date.ToISO(), date.ToFullISO(), Token);
+            url = string.Format(url, Driver.CompanyVatin, Driver.RegNumber, date.ToString("yyyy-MM-dd"), date.ToString("yyyy-MM-ddTHH:mm:ss"), Token);
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             var resp = await http.SendAsync(req);
             var raw = await resp.Content.ReadAsStringAsync();
@@ -37,7 +38,7 @@ namespace RetailLib.Operators
                     StorageId = (string)obj["FnNumber"],
                     Payment = new Payment((int)obj["CashSumm"], (int)obj["ECashSumm"]),
                     Positions = new Position[(int)obj["Depth"]],
-                    Date = ((string)obj["DocDateTime"]).ParseJSONDateTime(),
+                    Date = DateTime.ParseExact((string)obj["DocDateTime"], "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                     Operation = (corr, retu, sell).ToOperation()
                 };
                 for (var i = 0; i < (int)obj["Depth"]; i++)

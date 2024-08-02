@@ -1,8 +1,8 @@
-﻿using RetailTypes;
+﻿using RetailWay.Types;
 using System;
-using RetailTypes.Elements;
+using RetailWay.Types.Elements;
 
-namespace RetailLib
+namespace RetailWay.Integrations
 {
     public abstract class Driver: IDisposable
     {

@@ -1,10 +1,10 @@
 ﻿using Atol.Drivers10.Fptr;
-using RetailTypes;
-using RetailTypes.Enums;
-using RetailTypes.Elements;
+using RetailWay.Types;
+using RetailWay.Types.Enums;
+using RetailWay.Types.Elements;
 using System.Linq;
 
-namespace RetailLib.Drivers
+namespace RetailWay.Integrations.Drivers
 {
     public class ATOL : Driver
     {
