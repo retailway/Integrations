@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
-using RetailWay.Integrations.Attributes;
+﻿using RetailWay.Integrations.Attributes;
 using RetailWay.Types;
 using RetailWay.Types.Enums;
 using RetailWay.Types.Elements;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Globalization;
+using RetailWay.Integrations.Raw;
 
 namespace RetailWay.Integrations.Operators
 {
@@ -17,47 +15,44 @@ namespace RetailWay.Integrations.Operators
         public OFDRU() : base() { }
         public override async Task<List<Receipt>> PullReceipts(DateTime date)
         {
+            var raw = await OfdRu.GetInfoReceipts(Driver.CompanyVatin, Token, Driver.RegNumber, date);
             var res = new List<Receipt>();
-            var url = "https://ofd.ru/api/integration/v2/inn/{0}/kkt/{1}/receipts-info?dateFrom={2}&dateTo={3}&AuthToken={4}";
-            url = string.Format(url, Driver.CompanyVatin, Driver.RegNumber, date.ToString("yyyy-MM-dd"), date.ToString("yyyy-MM-ddTHH:mm:ss"), Token);
-            var req = new HttpRequestMessage(HttpMethod.Get, url);
-            var resp = await http.SendAsync(req);
-            var raw = await resp.Content.ReadAsStringAsync();
-            var body = JObject.Parse(raw);
-            if (!(body["Data"] is JArray receipts)) return null;
-            foreach (var obj in receipts)
+            if (raw.Data.Length == 0) return null;
+            foreach (var obj in raw.Data)
             {
-                var corr = (bool)obj["IsCorrection"];
-                var retu = ((string)obj["OperationType"]).StartsWith("Return");
-                var sell = ((string)obj["OperationType"]).EndsWith("ncome");
+                var corr = obj.IsCorrection;
+                var retu = obj.OperationType.StartsWith("Return");
+                var sell = obj.OperationType.EndsWith("ncome");
                 var origin = new Receipt
                 {
-                    Id = (int)obj["DocNumber"],
-                    Cashier = (string)obj["Operator"],
-                    FiscalSign = (string)obj["FiscalSign"],
-                    StorageId = (string)obj["FnNumber"],
-                    Payment = new Payment((int)obj["CashSumm"], (int)obj["ECashSumm"]),
-                    Positions = new Position[(int)obj["Depth"]],
-                    Date = DateTime.ParseExact((string)obj["DocDateTime"], "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
+                    Id = obj.DocNumber,
+                    Cashier = obj.Operator,
+                    FiscalSign = obj.DecimalFiscalSign,
+                    StorageId = obj.FnNumber,
+                    Payment = new Payment(obj.CashSumm, obj.ECashSumm, obj.PrepaidSumm, obj.ProvisionSumm, obj.CreditSumm),
+                    Positions = new Position[obj.Depth],
+                    Date = obj.DocDateTime,
                     Operation = (corr, retu, sell).ToOperation()
                 };
-                for (var i = 0; i < (int)obj["Depth"]; i++)
+                for (var i = 0; i < obj.Depth; i++)
                 {
-                    var item = obj["Items"][i];
+                    var item = obj.Items[i];
                     origin.Positions[i] = new Position
                     {
-                        Name = (string)item["Name"],
-                        Price = (int)item["Price"],
-                        Quantity = (decimal)item["Quantity"],
-                        Calculation = (CalculationMethod)(int)item["CalculationMethod"],
-                        Type = (SubjectType)(int)item["SubjectType"],
-                        Tax = (TaxType)(int)item["NDS_Rate"],
-                        MeasureUnit = (MeasureUnit)(int)item["ProductUnitOfMeasure"]
+                        Name = item.Name,
+                        Price = item.Price,
+                        Quantity = (decimal)item.Quantity,
+                        Calculation = (CalculationMethod)item.CalculationMethod,
+                        Type = (SubjectType)item.SubjectType,
+                        Tax = (TaxType)item.NDS_Rate,
+                        MeasureUnit = (MeasureUnit)item.ProductUnitOfMeasure
                     };
                 }
                 res.Add(origin);
             }
             return res;
         }
+        
     }
 }
+ 

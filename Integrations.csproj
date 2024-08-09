@@ -27,10 +27,16 @@
       <HintPath>..\..\..\..\Program Files (x86)\ATOL\Drivers10\KKT\langs\csharp\Atol.Drivers10.Fptr.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\RetailFix\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\RetailCorrector\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RetailWay.Integrations.Raw.OfdRu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\RetailCorrector\packages\RetailWay.Integrations.Raw.OfdRu.1.0.0\lib\net472\RetailWay.Integrations.Raw.OfdRu.dll</HintPath>
+    </Reference>
+    <Reference Include="RetailWay.Integrations.Raw.PlatformOfd, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\RetailCorrector\packages\RetailWay.Integrations.Raw.PlatformOfd.0.1.0\lib\net472\RetailWay.Integrations.Raw.PlatformOfd.dll</HintPath>
     </Reference>
     <Reference Include="RetailWay.Types, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\RetailFix\packages\RetailWay.Types.1.0.0\lib\net472\RetailWay.Types.dll</HintPath>
+      <HintPath>..\RetailCorrector\packages\RetailWay.Types.1.0.0\lib\net472\RetailWay.Types.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

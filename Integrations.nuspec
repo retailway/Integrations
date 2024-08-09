@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>RetailWay.Integrations</id>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
     <title>RetailWay.Integrations</title>
     <authors>RetailWay</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Integration of cash registers and operators of fiscal documents</description>
-	<repository type="git" url="https://github.com/retailway/RetailLib"/>
-	<copyright>$copyright$</copyright>
+	<repository type="git" url="https://github.com/RetailWay/Integrations"/>
+	<copyright>Copyright © RetailWay 2024</copyright>
     <tags>retail</tags>
   </metadata>
 </package>
